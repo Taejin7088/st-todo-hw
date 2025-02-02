@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { addTodo } from "../redux/slices/todosSlice";
 
 const FromStyle = styled.div`
   background-color: #b0acac;
@@ -31,11 +33,17 @@ const FromStyle = styled.div`
 `;
 const TodoList = () => {
   const [todo, setTodo] = useState({ title: "", content: "" });
+  const dispatch = useDispatch();
   console.log(todo);
   return (
     <>
       <FromStyle>
-        <form onSubmit={() => {}}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            dispatch(addTodo(todo));
+          }}
+        >
           <div>
             <label htmlFor="title">제목</label>
             <input
