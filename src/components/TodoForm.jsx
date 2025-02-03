@@ -32,16 +32,30 @@ const FromStyle = styled.div`
   }
 `;
 const TodoList = () => {
-  const [todo, setTodo] = useState({ title: "", content: "" });
+  const [todo, setTodo] = useState({
+    title: "",
+    content: "",
+  });
   const dispatch = useDispatch();
-  console.log(todo);
   return (
     <>
       <FromStyle>
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            if (todo.title === "") {
+              alert("제목입력");
+              return;
+            }
+            if (todo.content === "") {
+              alert("내용입력");
+              return;
+            }
             dispatch(addTodo(todo));
+            setTodo({
+              title: "",
+              content: "",
+            });
           }}
         >
           <div>

@@ -12,23 +12,35 @@ const TodoListStyle = styled.div`
   .item-area {
     display: flex;
     flex-wrap: wrap;
+    min-height: 350px;
   }
 `;
 
 const TodoList = () => {
   const todos = useSelector((state) => state.todos);
-  console.log(todos);
-  //working쪽에하나
+
+  const workingTodos = todos.filter((todo) => {
+    return !todo.done;
+  });
+
+  const doneTodos = todos.filter((todo) => {
+    return todo.done;
+  });
+
   return (
     <TodoListStyle>
       <div className="title">Working..🔥</div>
       <div className="item-area">
-        {todos.map((todo) => {
-          return <TodoItem todo={todo} key={todo.title} />;
+        {workingTodos.map((todo) => {
+          return <TodoItem todo={todo} key={todo.id} />;
         })}
       </div>
       <div className="title">Done..🎉</div>
-      <div className="item-area"></div>
+      <div className="item-area">
+        {doneTodos.map((todo) => {
+          return <TodoItem todo={todo} key={todo.id} />;
+        })}
+      </div>
     </TodoListStyle>
   );
 };
